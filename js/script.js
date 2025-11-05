@@ -11,7 +11,26 @@ const questionFlow = [
         id: 'q1_pray',
         text: "Priez-vous ?",
         type: 'question',
-        next: { yes: 'q2', no: 'q_continue' }
+        next: { yes: 'q2', no: 'q_believe_god' }
+    },
+    {
+        id: 'q_believe_god',
+        text: "Croyez-vous en Dieu ?",
+        type: 'question_three',
+        next: { yes: 'q_continue', no: 'final_god_believes', doubt: 'q_doubt_verse' }
+    },
+    {
+        id: 'q_doubt_verse',
+        text: "Dieu dit :\n\n« Approchez-vous de Dieu, et il s'approchera de vous. »\n— Jacques 4:8\n\nDieu vous attend avec amour. Il comprend vos doutes et désire marcher avec vous.",
+        type: 'text',
+        special: true,
+        nextId: 'q_doubt_continue'
+    },
+    {
+        id: 'q_doubt_continue',
+        text: "Voulez-vous continuer ?",
+        type: 'question',
+        next: { yes: 'q2', no: 'final_god_believes' }
     },
     {
         id: 'q_continue',
@@ -21,14 +40,14 @@ const questionFlow = [
     },
     {
         id: 'q2',
-        text: "Voici, Jésus frappe à la porte de votre cœur. La poignée est à l'intérieur, vous êtes le seul à pouvoir Le laisser entrer.",
+        text: "Voici, Jésus frappe à la porte de votre cœur. La poignée est à l'intérieur, vous êtes la seule personne à pouvoir Le laisser entrer.",
         type: 'text'
     },
     {
         id: 'q4',
-        text: "Imaginez que vous portez un sac à dos. Si nous le remplissions de tous vos péchés, serait-il lourd ? Cela représente votre dette envers Dieu. Elle vous empêche d'avoir une relation avec Lui.",
+        text: "Imaginez porter sur vos épaules un sac contenant tous vos péchés. Pas seulement les \"gros\" péchés, mais aussi les petits mensonges, les mauvaises pensées, les paroles blessantes... Ce poids, c'est ce qui brise la relation avec Dieu.",
         type: 'question',
-        question: "Serait-il lourd ?",
+        question: "Selon vous, votre sac contiendrait-il des choses ?",
         next: { yes: 'q5', no: 'q4_verse' }
     },
     {
@@ -47,9 +66,9 @@ const questionFlow = [
     {
         id: 'q5',
         text: "Si vous deviez un million d'Euros à la banque et que je vous donne un chèque de ce montant et que vous le remettiez à la banque, qu'adviendrait-il de votre dette ?",
-        type: 'question',
+        type: 'question_yes_only',
         question: "Votre dette serait effacée ?",
-        next: { yes: 'q6', no: 'q6' }
+        next: { yes: 'q6' }
     },
     {
         id: 'q6',
@@ -60,19 +79,19 @@ const questionFlow = [
     {
         id: 'q7',
         text: "Si Jésus était ici en ce moment, Le laisseriez-vous entrer ?",
-        type: 'question',
-        next: { yes: 'q8', no: 'q8' }
+        type: 'question_yes_only',
+        next: { yes: 'q8' }
     },
     {
         id: 'q8',
         text: "Pouvez-vous voir le vent ? Non, mais vous pouvez le sentir, n'est-ce pas ? Comme le vent, Jésus est ici en ce moment.",
-        type: 'question',
+        type: 'question_yes_only',
         question: "Puis-je prier pour que vous sentiez Sa présence ?",
-        next: { yes: 'prayer', no: 'q11_faith' }
+        next: { yes: 'prayer' }
     },
     {
         id: 'prayer',
-        text: "Père céleste,\n\nJe te prie pour {name} en cet instant.\n\nRévèle-toi à {name}, fais-lui ressentir ta présence.\nQue ton amour infini touche son cœur profondément.\n\nPère, je te prie, fais entendre à {name} que tu frappes à la porte de sa vie.\n\nRemplis {name} de ta paix qui surpasse toute intelligence,\nde ta joie qui est sa force,\net de ta lumière qui dissipe toutes ténèbres.\n\nSeigneur Jésus, bénis {name} abondamment.\n\nAu nom de Jésus,\nAmen.",
+        text: "Jésus,\n\nJe te prie pour {name} en cet instant.\n\nRévèle-toi à {name}, fais-lui ressentir ta présence.\nQue ton amour infini touche son cœur profondément.\n\nJésus, je te prie, fais entendre à {name} que tu frappes à la porte de son cœur.\n\nRemplis {name} de ta paix,\net de ta lumière qui dissipe toutes ténèbres.\n\nSeigneur Jésus, bénis {name} abondamment.\n\nAu nom de Jésus,\nAmen.",
         type: 'text',
         special: true,
         nextId: 'q9_felt'
@@ -88,23 +107,31 @@ const questionFlow = [
         text: "En ce moment, vous êtes sur un chemin de vie sans Jésus. Vous devez vous détourner de votre péché, changer de direction et Le suivre.",
         type: 'question',
         question: "Voulez-vous Le suivre ?",
-        next: { yes: 'final_prayer', no: 'final_reflection' }
+        next: { yes: 'q_repeat_prayer', no: 'final_reflection' }
     },
     {
         id: 'q11_faith',
         text: "Par la foi, croyez-vous que Jésus est ici en ce moment ?",
         type: 'question',
-        next: { yes: 'final_prayer', no: 'final_reflection' }
+        next: { yes: 'q_repeat_prayer', no: 'final_reflection' }
+    },
+    {
+        id: 'q_repeat_prayer',
+        text: "Si tu veux vraiment suivre Jésus, répète cette prière avec moi :\n\nJésus, pardonne-moi mes péchés.\nJ'ouvre la porte de mon cœur.\nJe te fais Seigneur de ma vie.\nRemplis-moi de ton Esprit.\n\nAmen.",
+        type: 'question_yes_only',
+        question: "As-tu répété cette prière ?",
+        special: true,
+        next: { yes: 'final_prayer' }
     },
     {
         id: 'final_prayer',
-        text: "Jésus, pardonne-moi mes péchés. J'ouvre la porte de mon cœur. Je te fais Seigneur de ma vie. Remplis-moi de ton Esprit.\n\nAmen.",
+        text: "acceptance_prayer", // This will trigger the professional layout
         type: 'final',
         special: true
     },
     {
         id: 'final_reflection',
-        text: "Merci d'avoir pris le temps de réfléchir à ces questions. La porte reste toujours ouverte.",
+        text: "Merci pour ton honnêteté, {name}.\n\nJésus respecte ton choix et continue de t'aimer.\n\n« Car Dieu a tant aimé le monde qu'il a donné son Fils unique. »\n— Jean 3:16\n\nLa porte reste ouverte. Toujours.\nTu peux revenir quand tu veux.\n\nQue Dieu te bénisse.",
         type: 'final'
     },
     {
@@ -192,7 +219,7 @@ function displayQuestion(questionId) {
     if (!question) return;
 
     // Check if question was already answered
-    if (question.type === 'question') {
+    if (question.type === 'question' || question.type === 'question_three' || question.type === 'question_yes_only') {
         currentQuestionAnswered = answers[questionId] !== undefined;
     } else {
         currentQuestionAnswered = true; // Text questions don't need answers
@@ -235,7 +262,7 @@ function displayQuestion(questionId) {
     }
 
     // Add answer buttons inside card for question types
-    if (question.type === 'question') {
+    if (question.type === 'question' || question.type === 'question_three' || question.type === 'question_yes_only') {
         const answerBtnsContainer = document.createElement('div');
         answerBtnsContainer.className = 'answer-buttons';
         answerBtnsContainer.style.display = 'flex';
@@ -249,17 +276,34 @@ function displayQuestion(questionId) {
             handleAnswer('yes');
         });
 
-        const noBtn = document.createElement('button');
-        noBtn.className = 'btn-answer btn-no';
-        noBtn.textContent = 'Non';
-        noBtn.setAttribute('type', 'button');
-        noBtn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            handleAnswer('no');
-        });
-
         answerBtnsContainer.appendChild(yesBtn);
-        answerBtnsContainer.appendChild(noBtn);
+
+        // Add doubt button for question_three type
+        if (question.type === 'question_three') {
+            const doubtBtn = document.createElement('button');
+            doubtBtn.className = 'btn-answer btn-doubt';
+            doubtBtn.textContent = "J'ai un doute";
+            doubtBtn.setAttribute('type', 'button');
+            doubtBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                handleAnswer('doubt');
+            });
+            answerBtnsContainer.appendChild(doubtBtn);
+        }
+
+        // Add No button only if not question_yes_only
+        if (question.type !== 'question_yes_only') {
+            const noBtn = document.createElement('button');
+            noBtn.className = 'btn-answer btn-no';
+            noBtn.textContent = 'Non';
+            noBtn.setAttribute('type', 'button');
+            noBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                handleAnswer('no');
+            });
+            answerBtnsContainer.appendChild(noBtn);
+        }
+
         card.appendChild(answerBtnsContainer);
     }
 
@@ -400,7 +444,7 @@ function updateNavigationButtons() {
 
     if (question && question.type === 'final') {
         nextBtn.disabled = true; // Final screen
-    } else if (question && question.type === 'question' && !currentQuestionAnswered) {
+    } else if (question && (question.type === 'question' || question.type === 'question_three' || question.type === 'question_yes_only') && !currentQuestionAnswered) {
         nextBtn.disabled = true; // Question not answered yet
     } else {
         nextBtn.disabled = false; // Can navigate
@@ -427,52 +471,149 @@ function showFinalScreen() {
     const finalContent = document.createElement('div');
     finalContent.className = 'final-content';
 
-    // Add special background if needed
-    if (finalQuestion && finalQuestion.special) {
-        finalContent.style.backgroundImage = "url('assets/Sticker-2-700x700.webp')";
-        finalContent.style.backgroundSize = 'contain';
-        finalContent.style.backgroundPosition = 'center';
-        finalContent.style.backgroundRepeat = 'no-repeat';
-        finalContent.style.position = 'relative';
+    // Check if this is the acceptance prayer (final_prayer)
+    if (finalQuestion && finalQuestion.id === 'final_prayer') {
+        // Create professional layout for the acceptance message
+        finalContent.innerHTML = `
+            <div class="final-wrapper">
+                <div class="final-header">
+                    <div class="celebration-icon">🎉</div>
+                    <h1 class="final-title">Bienvenue dans ta nouvelle vie avec Jésus !</h1>
+                </div>
 
-        // Add overlay for better text readability
-        const overlay = document.createElement('div');
-        overlay.style.position = 'absolute';
-        overlay.style.top = '0';
-        overlay.style.left = '0';
-        overlay.style.width = '100%';
-        overlay.style.height = '100%';
-        overlay.style.background = 'rgba(0, 0, 0, 0.6)';
-        overlay.style.borderRadius = '20px';
-        finalContent.appendChild(overlay);
+                <div class="prayer-section">
+                    <p class="prayer-text">Jésus, pardonne-moi mes péchés. J'ouvre la porte de mon cœur. Je te fais Seigneur de ma vie. Remplis-moi de ton Esprit.</p>
+                    <p class="amen">Amen.</p>
+                </div>
+
+                <div class="welcome-section">
+                    <p class="welcome-message">Aujourd'hui, tu as ouvert ton cœur ❤️ à Jésus-Christ. C'est la plus belle décision de ta vie ! Une nouvelle aventure commence pour toi.</p>
+                </div>
+
+                <div class="journey-section">
+                    <h2 class="section-title">🚶‍♂️ Marcher avec Jésus, chaque jour</h2>
+                    <p class="section-text">Dire "oui" à Jésus, c'est un bon départ. Mais l'essentiel, c'est de continuer chaque jour. Jésus t'appelle à une relation vivante avec Lui – pas juste un moment fort, mais une vie entière à Ses côtés.</p>
+                </div>
+
+                <div class="teaching-section">
+                    <h2 class="section-title">📖 Ce que Jésus nous enseigne</h2>
+                    <p class="section-text">Jésus a dit que la Parole de Dieu est comme une graine, et ton cœur est comme un sol. Il y a 4 types de cœurs. Aujourd'hui, lequel est le tien ?</p>
+
+                    <div class="hearts-grid">
+                        <div class="heart-card">
+                            <div class="heart-icon">✋</div>
+                            <h3 class="heart-title">1. Le bord du chemin</h3>
+                            <p class="heart-description">Tu entends le message, mais tu ne fais pas attention. Ton cœur est fermé.</p>
+                            <p class="heart-consequence">👉 Le diable t'enlève ce que Dieu voulait te donner.</p>
+                        </div>
+
+                        <div class="heart-card">
+                            <div class="heart-icon">🪨</div>
+                            <h3 class="heart-title">2. Le sol pierreux</h3>
+                            <p class="heart-description">Tu écoutes avec joie, mais ça ne va pas profond.</p>
+                            <p class="heart-consequence">👉 Dès que ça devient dur, tu abandonnes. Tu n'es pas vraiment décidé à suivre Jésus.</p>
+                        </div>
+
+                        <div class="heart-card">
+                            <div class="heart-icon">🌿</div>
+                            <h3 class="heart-title">3. Les ronces</h3>
+                            <p class="heart-description">Tu veux croire, mais tu es étouffé par les soucis.</p>
+                            <p class="heart-consequence">👉 Tu es stressé, inquiet, submergé par les problèmes, l'argent ou des blessures du passé… La Parole entre, mais elle ne reste pas. Elle est étouffée par tes préoccupations, et ne peut pas produire de changement en toi.</p>
+                        </div>
+
+                        <div class="heart-card good-heart">
+                            <div class="heart-icon">❤️</div>
+                            <h3 class="heart-title">4. La bonne terre</h3>
+                            <p class="heart-description">Tu entends, tu ouvres ton cœur, tu te repens, et tu laisses Jésus te transformer.</p>
+                            <p class="heart-consequence">👉 Ta vie change. Tu vis pour Dieu. Et tu portes du fruit.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="encouragement-section">
+                    <h2 class="section-title">✨ Mon encouragement pour toi</h2>
+                    <p class="section-text">Ne laisse rien voler ce que Dieu a commencé en toi ! Reste connecté à Jésus en :</p>
+                    <ul class="encouragement-list">
+                        <li>Lui parlant chaque jour</li>
+                        <li>Lisant la Bible</li>
+                        <li>Venant à l'église</li>
+                    </ul>
+                    <blockquote class="bible-quote">
+                        "Celui qui a commencé en vous cette bonne œuvre la rendra parfaite."<br>
+                        <cite>— Philippiens 1:6</cite>
+                    </blockquote>
+                </div>
+
+                <div class="book-section">
+                    <h2 class="section-title">🎁 Découvre "Suivre Jésus"</h2>
+                    <p class="section-text">Un guide pour bien commencer ta nouvelle vie avec Dieu</p>
+                    <p class="book-description">Le livret Suivre Jésus est un outil simple et puissant pour t'aider à comprendre ce que signifie suivre Jésus au quotidien. Il a été conçu pour accompagner ceux qui veulent vraiment avancer avec Dieu.</p>
+                    <p class="book-description">Tu y découvriras les bases essentielles pour grandir dans ta foi et marcher chaque jour avec Jésus.</p>
+
+                    <a href="suivre_jesus.pdf" download class="btn-download">
+                        <span class="download-icon">📥</span>
+                        <span>Télécharger le livre</span>
+                    </a>
+                </div>
+
+                <div class="final-actions">
+                    <button class="btn-restart" id="restartBtn">Recommencer</button>
+                </div>
+            </div>
+        `;
+
+        // Add event listener to restart button
+        const restartBtn = finalContent.querySelector('#restartBtn');
+        restartBtn.addEventListener('click', restartQuestionnaire);
+    } else {
+        // For other final screens, use the original simple layout
+        // Add special background if needed
+        if (finalQuestion && finalQuestion.special) {
+            finalContent.style.backgroundImage = "url('assets/Sticker-2-700x700.webp')";
+            finalContent.style.backgroundSize = 'contain';
+            finalContent.style.backgroundPosition = 'center';
+            finalContent.style.backgroundRepeat = 'no-repeat';
+            finalContent.style.position = 'relative';
+
+            // Add overlay for better text readability
+            const overlay = document.createElement('div');
+            overlay.style.position = 'absolute';
+            overlay.style.top = '0';
+            overlay.style.left = '0';
+            overlay.style.width = '100%';
+            overlay.style.height = '100%';
+            overlay.style.background = 'rgba(0, 0, 0, 0.6)';
+            overlay.style.borderRadius = '20px';
+            finalContent.appendChild(overlay);
+        }
+
+        const contentWrapper = document.createElement('div');
+        contentWrapper.style.position = 'relative';
+        contentWrapper.style.zIndex = '1';
+
+        const finalMessage = document.createElement('p');
+        finalMessage.className = 'final-message';
+        finalMessage.style.color = finalQuestion && finalQuestion.special ? 'white' : 'var(--text-primary)';
+        finalMessage.style.fontSize = 'clamp(1.1rem, 2.5vw, 1.4rem)';
+        finalMessage.style.fontWeight = '400';
+        // Replace {name} with actual user name
+        const finalText = finalQuestion ? finalQuestion.text.replaceAll('{name}', userName) : "Merci d'avoir participé.";
+        finalMessage.textContent = finalText;
+
+        contentWrapper.appendChild(finalMessage);
+
+        // Add restart button
+        const restartButton = document.createElement('button');
+        restartButton.className = 'btn-primary';
+        restartButton.textContent = 'Recommencer';
+        restartButton.style.marginTop = '2rem';
+        restartButton.addEventListener('click', restartQuestionnaire);
+
+        contentWrapper.appendChild(restartButton);
+        finalContent.appendChild(contentWrapper);
     }
 
-    const contentWrapper = document.createElement('div');
-    contentWrapper.style.position = 'relative';
-    contentWrapper.style.zIndex = '1';
-
-    const finalMessage = document.createElement('p');
-    finalMessage.className = 'final-message';
-    finalMessage.style.color = finalQuestion && finalQuestion.special ? 'white' : 'var(--text-primary)';
-    finalMessage.style.fontSize = 'clamp(1.1rem, 2.5vw, 1.4rem)';
-    finalMessage.style.fontWeight = '400';
-    // Replace {name} with actual user name
-    const finalText = finalQuestion ? finalQuestion.text.replaceAll('{name}', userName) : "Merci d'avoir participé.";
-    finalMessage.textContent = finalText;
-
-    contentWrapper.appendChild(finalMessage);
-
-    // Add restart button
-    const restartButton = document.createElement('button');
-    restartButton.className = 'btn-primary';
-    restartButton.textContent = 'Recommencer';
-    restartButton.style.marginTop = '2rem';
-    restartButton.addEventListener('click', restartQuestionnaire);
-
-    contentWrapper.appendChild(restartButton);
-    finalContent.appendChild(contentWrapper);
     finalScreen.appendChild(finalContent);
-
     showScreen(finalScreen);
 }
 
@@ -510,7 +651,7 @@ function handleKeyboard(e) {
         }
 
         // Answer shortcuts only work on question type
-        if (question && question.type === 'question') {
+        if (question && (question.type === 'question' || question.type === 'question_three' || question.type === 'question_yes_only')) {
             switch(e.key) {
                 case '1':
                 case 'o':
@@ -521,8 +662,18 @@ function handleKeyboard(e) {
                 case '2':
                 case 'n':
                 case 'N':
-                    e.preventDefault();
-                    handleAnswer('no');
+                    if (question.type !== 'question_yes_only') {
+                        e.preventDefault();
+                        handleAnswer('no');
+                    }
+                    break;
+                case '3':
+                case 'd':
+                case 'D':
+                    if (question.type === 'question_three') {
+                        e.preventDefault();
+                        handleAnswer('doubt');
+                    }
                     break;
                 case 'Enter':
                     e.preventDefault();
