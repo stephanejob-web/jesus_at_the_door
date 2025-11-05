@@ -21,6 +21,8 @@
     --btn-yes-hover: #229954;
     --btn-no: #e74c3c;
     --btn-no-hover: #c0392b;
+    --btn-doubt: #f39c12;
+    --btn-doubt-hover: #e67e22;
 
     /* Transitions */
     --transition-speed: 0.3s;
@@ -48,6 +50,8 @@
     --btn-yes-hover: #27ae60;
     --btn-no: #e74c3c;
     --btn-no-hover: #c0392b;
+    --btn-doubt: #f39c12;
+    --btn-doubt-hover: #e67e22;
 }
 
 /* === RESET & BASE === */
@@ -494,6 +498,7 @@ body {
     display: none;
     gap: 1rem;
     justify-content: center;
+    align-items: center;
     margin-top: 2.5rem;
     width: 100%;
     padding: 0 1rem;
@@ -553,6 +558,15 @@ body {
 
 .btn-no:hover {
     box-shadow: 0 8px 30px rgba(231, 76, 60, 0.45);
+}
+
+.btn-doubt {
+    background: linear-gradient(135deg, var(--btn-doubt), var(--btn-doubt-hover));
+    box-shadow: 0 6px 20px rgba(243, 156, 18, 0.35);
+}
+
+.btn-doubt:hover {
+    box-shadow: 0 8px 30px rgba(243, 156, 18, 0.45);
 }
 
 .btn-answer:hover {
