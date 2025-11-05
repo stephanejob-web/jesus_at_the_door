@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Une série de questions pour réfléchir">
+    <title>Questions</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <!-- Video Background -->
+    <div class="video-background">
+        <video autoplay muted loop playsinline poster="assets/Sticker-2-700x700.webp">
+            <source src="assets/jatd.mp4" type="video/mp4">
+        </video>
+        <div class="video-overlay"></div>
+    </div>
+
+    <!-- Theme Toggle -->
+    <button class="theme-toggle" aria-label="Changer le thème">
+        <span class="theme-icon">🌙</span>
+    </button>
+
+    <!-- Home Screen -->
+    <div class="screen home-screen active" id="homeScreen">
+        <div class="home-content">
+            <h1 class="welcome-text">Bonjour — une question rapide ?</h1>
+            <button class="btn-primary" id="startBtn">Commencer</button>
+        </div>
+    </div>
+
+    <!-- Name Input Screen -->
+    <div class="screen name-screen" id="nameScreen">
+        <div class="name-content">
+            <h2 class="name-title">Quel est votre prénom ?</h2>
+            <form id="nameForm" class="name-form">
+                <input
+                    type="text"
+                    id="userName"
+                    class="name-input"
+                    placeholder="Entrez votre prénom"
+                    required
+                    autocomplete="given-name"
+                    aria-label="Votre prénom"
+                />
+                <button type="submit" class="btn-primary">Continuer</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Questions Screen -->
+    <div class="screen questions-screen" id="questionsScreen">
+        <!-- Progress Bar -->
+        <div class="progress-container">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <div class="progress-counter" id="progressCounter">Question 1 / 8</div>
+        </div>
+
+        <!-- Question Cards Container -->
+        <div class="cards-container" id="cardsContainer">
+            <!-- Cards will be dynamically generated -->
+        </div>
+
+        <!-- Navigation Buttons -->
+        <div class="nav-buttons" id="navButtons">
+            <button class="btn-nav btn-prev" id="prevBtn" aria-label="Question précédente">
+                <span>← Précédent</span>
+            </button>
+            <button class="btn-nav btn-next" id="nextBtn" aria-label="Question suivante">
+                <span>Suivant →</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Final Screen -->
+    <div class="screen final-screen" id="finalScreen">
+        <!-- Content will be dynamically generated -->
+    </div>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
