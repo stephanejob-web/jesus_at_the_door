@@ -16,8 +16,21 @@ const questionFlow = [
     {
         id: 'q_believe_god',
         text: "Croyez-vous en Dieu ?",
+        type: 'question_three',
+        next: { yes: 'q_continue', no: 'final_god_believes', doubt: 'q_doubt_verse' }
+    },
+    {
+        id: 'q_doubt_verse',
+        text: "Dieu dit :\n\n« Approchez-vous de Dieu, et il s'approchera de vous. »\n— Jacques 4:8\n\nDieu vous attend avec amour. Il comprend vos doutes et désire marcher avec vous.",
+        type: 'text',
+        special: true,
+        nextId: 'q_doubt_continue'
+    },
+    {
+        id: 'q_doubt_continue',
+        text: "Voulez-vous continuer ?",
         type: 'question',
-        next: { yes: 'q_continue', no: 'final_god_believes' }
+        next: { yes: 'q2', no: 'final_god_believes' }
     },
     {
         id: 'q_continue',
@@ -32,9 +45,9 @@ const questionFlow = [
     },
     {
         id: 'q4',
-        text: "Imaginez que vous portez un sac à dos. Si nous le remplissions de tous vos péchés, serait-il lourd ? Cela représente votre dette envers Dieu. Elle vous empêche d'avoir une relation avec Lui.",
+        text: "Imaginez porter sur vos épaules un sac contenant tous vos péchés. Ce poids, c'est votre dette envers Dieu. C'est ce qui brise la relation avec Lui.",
         type: 'question',
-        question: "Serait-il lourd ?",
+        question: "Selon vous, serait-il lourd ?",
         next: { yes: 'q5', no: 'q4_verse' }
     },
     {
@@ -53,9 +66,9 @@ const questionFlow = [
     {
         id: 'q5',
         text: "Si vous deviez un million d'Euros à la banque et que je vous donne un chèque de ce montant et que vous le remettiez à la banque, qu'adviendrait-il de votre dette ?",
-        type: 'question',
+        type: 'question_yes_only',
         question: "Votre dette serait effacée ?",
-        next: { yes: 'q6', no: 'q6' }
+        next: { yes: 'q6' }
     },
     {
         id: 'q6',
@@ -66,19 +79,19 @@ const questionFlow = [
     {
         id: 'q7',
         text: "Si Jésus était ici en ce moment, Le laisseriez-vous entrer ?",
-        type: 'question',
-        next: { yes: 'q8', no: 'q8' }
+        type: 'question_yes_only',
+        next: { yes: 'q8' }
     },
     {
         id: 'q8',
         text: "Pouvez-vous voir le vent ? Non, mais vous pouvez le sentir, n'est-ce pas ? Comme le vent, Jésus est ici en ce moment.",
-        type: 'question',
+        type: 'question_yes_only',
         question: "Puis-je prier pour que vous sentiez Sa présence ?",
-        next: { yes: 'prayer', no: 'q11_faith' }
+        next: { yes: 'prayer' }
     },
     {
         id: 'prayer',
-        text: "Père céleste,\n\nJe te prie pour {name} en cet instant.\n\nRévèle-toi à {name}, fais-lui ressentir ta présence.\nQue ton amour infini touche son cœur profondément.\n\nPère, je te prie, fais entendre à {name} que tu frappes à la porte de sa vie.\n\nRemplis {name} de ta paix qui surpasse toute intelligence,\nde ta joie qui est sa force,\net de ta lumière qui dissipe toutes ténèbres.\n\nSeigneur Jésus, bénis {name} abondamment.\n\nAu nom de Jésus,\nAmen.",
+        text: "Jésus,\n\nJe te prie pour {name} en cet instant.\n\nRévèle-toi à {name}, fais-lui ressentir ta présence.\nQue ton amour infini touche son cœur profondément.\n\nJésus, je te prie, fais entendre à {name} que tu frappes à la porte de son cœur.\n\nRemplis {name} de ta paix,\net de ta lumière qui dissipe toutes ténèbres.\n\nSeigneur Jésus, bénis {name} abondamment.\n\nAu nom de Jésus,\nAmen.",
         type: 'text',
         special: true,
         nextId: 'q9_felt'
@@ -198,7 +211,7 @@ function displayQuestion(questionId) {
     if (!question) return;
 
     // Check if question was already answered
-    if (question.type === 'question') {
+    if (question.type === 'question' || question.type === 'question_three' || question.type === 'question_yes_only') {
         currentQuestionAnswered = answers[questionId] !== undefined;
     } else {
         currentQuestionAnswered = true; // Text questions don't need answers
@@ -241,7 +254,7 @@ function displayQuestion(questionId) {
     }
 
     // Add answer buttons inside card for question types
-    if (question.type === 'question') {
+    if (question.type === 'question' || question.type === 'question_three' || question.type === 'question_yes_only') {
         const answerBtnsContainer = document.createElement('div');
         answerBtnsContainer.className = 'answer-buttons';
         answerBtnsContainer.style.display = 'flex';
@@ -255,17 +268,34 @@ function displayQuestion(questionId) {
             handleAnswer('yes');
         });
 
-        const noBtn = document.createElement('button');
-        noBtn.className = 'btn-answer btn-no';
-        noBtn.textContent = 'Non';
-        noBtn.setAttribute('type', 'button');
-        noBtn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            handleAnswer('no');
-        });
-
         answerBtnsContainer.appendChild(yesBtn);
-        answerBtnsContainer.appendChild(noBtn);
+
+        // Add doubt button for question_three type
+        if (question.type === 'question_three') {
+            const doubtBtn = document.createElement('button');
+            doubtBtn.className = 'btn-answer btn-doubt';
+            doubtBtn.textContent = "J'ai un doute";
+            doubtBtn.setAttribute('type', 'button');
+            doubtBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                handleAnswer('doubt');
+            });
+            answerBtnsContainer.appendChild(doubtBtn);
+        }
+
+        // Add No button only if not question_yes_only
+        if (question.type !== 'question_yes_only') {
+            const noBtn = document.createElement('button');
+            noBtn.className = 'btn-answer btn-no';
+            noBtn.textContent = 'Non';
+            noBtn.setAttribute('type', 'button');
+            noBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                handleAnswer('no');
+            });
+            answerBtnsContainer.appendChild(noBtn);
+        }
+
         card.appendChild(answerBtnsContainer);
     }
 
@@ -406,7 +436,7 @@ function updateNavigationButtons() {
 
     if (question && question.type === 'final') {
         nextBtn.disabled = true; // Final screen
-    } else if (question && question.type === 'question' && !currentQuestionAnswered) {
+    } else if (question && (question.type === 'question' || question.type === 'question_three' || question.type === 'question_yes_only') && !currentQuestionAnswered) {
         nextBtn.disabled = true; // Question not answered yet
     } else {
         nextBtn.disabled = false; // Can navigate
@@ -516,7 +546,7 @@ function handleKeyboard(e) {
         }
 
         // Answer shortcuts only work on question type
-        if (question && question.type === 'question') {
+        if (question && (question.type === 'question' || question.type === 'question_three' || question.type === 'question_yes_only')) {
             switch(e.key) {
                 case '1':
                 case 'o':
@@ -527,8 +557,18 @@ function handleKeyboard(e) {
                 case '2':
                 case 'n':
                 case 'N':
-                    e.preventDefault();
-                    handleAnswer('no');
+                    if (question.type !== 'question_yes_only') {
+                        e.preventDefault();
+                        handleAnswer('no');
+                    }
+                    break;
+                case '3':
+                case 'd':
+                case 'D':
+                    if (question.type === 'question_three') {
+                        e.preventDefault();
+                        handleAnswer('doubt');
+                    }
                     break;
                 case 'Enter':
                     e.preventDefault();
