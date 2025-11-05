@@ -153,6 +153,88 @@ body {
     visibility: visible;
 }
 
+/* === LANGUAGE SCREEN === */
+.language-screen {
+    background: transparent;
+}
+
+.language-content {
+    text-align: center;
+    padding: 3rem;
+    max-width: 600px;
+    animation: fadeInUp 0.8s ease-out;
+    background: var(--card-bg-glass);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-radius: 30px;
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-elevated);
+}
+
+.language-title {
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
+    font-weight: 500;
+    line-height: 1.4;
+    margin-bottom: 3rem;
+    color: var(--text-primary);
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.language-subtitle {
+    font-size: clamp(1.2rem, 3vw, 1.6rem);
+    font-weight: 400;
+    color: var(--text-secondary);
+    opacity: 0.8;
+}
+
+[data-theme="dark"] .language-title {
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.6);
+}
+
+.language-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.btn-language {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+    padding: 1.5rem 2.5rem;
+    font-size: 1.4rem;
+    font-weight: 600;
+    border: 2px solid var(--border-color);
+    border-radius: 20px;
+    background: var(--card-bg);
+    color: var(--text-primary);
+    cursor: pointer;
+    transition: all var(--transition-speed) var(--transition-smooth);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.btn-language:hover {
+    transform: translateY(-5px) scale(1.02);
+    border-color: var(--accent-color);
+    box-shadow: 0 12px 30px rgba(52, 152, 219, 0.3);
+    background: linear-gradient(135deg, rgba(52, 152, 219, 0.1), rgba(41, 128, 185, 0.05));
+}
+
+.btn-language:active {
+    transform: translateY(-2px) scale(1);
+}
+
+.btn-language .flag {
+    font-size: 2.5rem;
+}
+
+.btn-language .lang-name {
+    font-size: 1.3rem;
+}
+
 /* === HOME SCREEN === */
 .home-screen {
     background: transparent;
@@ -411,6 +493,8 @@ body {
     z-index: 1;
     text-shadow: 0 3px 15px rgba(0, 0, 0, 0.9), 0 1px 3px rgba(0, 0, 0, 0.8);
     font-weight: 500;
+    font-size: clamp(1.6rem, 4.5vw, 2.8rem);
+    line-height: 1.6;
 }
 
 .question-text {
@@ -437,13 +521,19 @@ body {
 
 /* Smaller font for longer text */
 .question-card.has-long-text .question-text {
-    font-size: clamp(1.1rem, 3vw, 1.6rem);
-    line-height: 1.6;
+    font-size: clamp(1.25rem, 3.5vw, 1.8rem);
+    line-height: 1.7;
     font-weight: 600;
 }
 
 [data-theme="dark"] .question-card.has-long-text .question-text {
     font-weight: 700;
+}
+
+/* Bigger font for special cards with long text (prayers) */
+.question-card.special-card.has-long-text .question-text {
+    font-size: clamp(1.4rem, 4vw, 2.2rem);
+    line-height: 1.75;
 }
 
 /* Navigation Buttons */
@@ -657,10 +747,29 @@ body {
 
 /* === RESPONSIVE DESIGN === */
 @media (max-width: 768px) {
+    .language-content,
     .home-content,
     .name-content {
         padding: 2.5rem 2rem;
         margin: 1rem;
+    }
+
+    .language-title {
+        font-size: clamp(1.5rem, 4vw, 2rem);
+        margin-bottom: 2rem;
+    }
+
+    .btn-language {
+        padding: 1.3rem 2rem;
+        font-size: 1.2rem;
+    }
+
+    .btn-language .flag {
+        font-size: 2rem;
+    }
+
+    .btn-language .lang-name {
+        font-size: 1.2rem;
     }
 
     .welcome-text {
@@ -683,7 +792,19 @@ body {
     }
 
     .question-text {
-        font-size: clamp(1.3rem, 3.5vw, 2rem);
+        font-size: clamp(1.4rem, 4vw, 2.2rem);
+    }
+
+    .question-card.has-long-text .question-text {
+        font-size: clamp(1.2rem, 4vw, 1.7rem);
+    }
+
+    .question-card.special-card .question-text {
+        font-size: clamp(1.5rem, 5vw, 2.4rem);
+    }
+
+    .question-card.special-card.has-long-text .question-text {
+        font-size: clamp(1.3rem, 4.5vw, 2rem);
     }
 
     .answer-buttons {
@@ -769,7 +890,19 @@ body {
     }
 
     .question-text {
-        font-size: clamp(1.2rem, 3vw, 1.6rem);
+        font-size: clamp(1.3rem, 4.5vw, 1.9rem);
+    }
+
+    .question-card.has-long-text .question-text {
+        font-size: clamp(1.15rem, 4.2vw, 1.6rem);
+    }
+
+    .question-card.special-card .question-text {
+        font-size: clamp(1.4rem, 5.5vw, 2.2rem);
+    }
+
+    .question-card.special-card.has-long-text .question-text {
+        font-size: clamp(1.25rem, 5vw, 1.9rem);
     }
 
     .theme-toggle {
@@ -844,26 +977,27 @@ body {
 .prayer-section {
     background: linear-gradient(135deg, rgba(52, 152, 219, 0.1), rgba(41, 128, 185, 0.05));
     border-left: 4px solid var(--accent-color);
-    padding: 1.5rem 2rem;
+    padding: 2rem 2.5rem;
     border-radius: 15px;
     margin-bottom: 2rem;
     animation: fadeInUp 0.7s ease-out;
 }
 
 .prayer-text {
-    font-size: 1.15rem;
+    font-size: clamp(1.3rem, 3vw, 1.8rem);
     font-style: italic;
-    line-height: 1.8;
+    line-height: 1.9;
     color: var(--text-primary);
-    margin: 0 0 0.5rem 0;
+    margin: 0 0 0.8rem 0;
+    font-weight: 400;
 }
 
 .amen {
-    font-size: 1.2rem;
-    font-weight: 600;
+    font-size: clamp(1.4rem, 3.5vw, 2rem);
+    font-weight: 700;
     color: var(--accent-color);
     text-align: right;
-    margin: 0;
+    margin: 0.5rem 0 0 0;
 }
 
 /* Welcome Section */
@@ -1138,7 +1272,19 @@ body {
         padding: 1.2rem;
     }
 
-    .prayer-section,
+    .prayer-section {
+        padding: 1.5rem 1.8rem;
+    }
+
+    .prayer-text {
+        font-size: clamp(1.2rem, 3.5vw, 1.6rem);
+        line-height: 1.8;
+    }
+
+    .amen {
+        font-size: clamp(1.3rem, 4vw, 1.8rem);
+    }
+
     .book-section {
         padding: 1.2rem 1.5rem;
     }
@@ -1174,11 +1320,16 @@ body {
     }
 
     .prayer-section {
-        padding: 1rem;
+        padding: 1.2rem 1.5rem;
     }
 
     .prayer-text {
-        font-size: 1rem;
+        font-size: clamp(1.15rem, 4vw, 1.4rem);
+        line-height: 1.75;
+    }
+
+    .amen {
+        font-size: clamp(1.25rem, 4.5vw, 1.6rem);
     }
 
     .welcome-message {
