@@ -11,7 +11,13 @@ const questionFlow = [
         id: 'q1_pray',
         text: "Priez-vous ?",
         type: 'question',
-        next: { yes: 'q2', no: 'q_continue' }
+        next: { yes: 'q2', no: 'q_believe_god' }
+    },
+    {
+        id: 'q_believe_god',
+        text: "Croyez-vous en Dieu ?",
+        type: 'question',
+        next: { yes: 'q_continue', no: 'final_god_believes' }
     },
     {
         id: 'q_continue',
@@ -21,7 +27,7 @@ const questionFlow = [
     },
     {
         id: 'q2',
-        text: "Voici, Jésus frappe à la porte de votre cœur. La poignée est à l'intérieur, vous êtes le seul à pouvoir Le laisser entrer.",
+        text: "Voici, Jésus frappe à la porte de votre cœur. La poignée est à l'intérieur, vous êtes la seule personne à pouvoir Le laisser entrer.",
         type: 'text'
     },
     {
