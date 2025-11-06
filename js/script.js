@@ -88,7 +88,13 @@ const translations = {
             bookDesc1: "Le livret Suivre Jésus est un outil simple et puissant pour t'aider à comprendre ce que signifie suivre Jésus au quotidien. Il a été conçu pour accompagner ceux qui veulent vraiment avancer avec Dieu.",
             bookDesc2: "Tu y découvriras les bases essentielles pour grandir dans ta foi et marcher chaque jour avec Jésus.",
             downloadBtn: "Télécharger le livre",
-            restartBtn: "Recommencer"
+            restartBtn: "Recommencer",
+            booksForYouTitle: "📚 Des livres pour toi",
+            booksForYouText: "Nous aimerions t'offrir ces ressources pour t'aider dans ta réflexion :",
+            book1Title: "Un Amour Fou",
+            book1Desc: "Découvre l'amour inconditionnel de Dieu pour toi.",
+            book2Title: "Du Moins au Plus",
+            book2Desc: "Un guide pour comprendre la foi et cheminer avec Dieu."
         }
     },
     en: {
@@ -179,7 +185,13 @@ const translations = {
             bookDesc1: "The Following Jesus booklet is a simple and powerful tool to help you understand what it means to follow Jesus daily. It was designed to accompany those who really want to move forward with God.",
             bookDesc2: "You will discover the essential basics to grow in your faith and walk with Jesus every day.",
             downloadBtn: "Download the book",
-            restartBtn: "Restart"
+            restartBtn: "Restart",
+            booksForYouTitle: "📚 Books for you",
+            booksForYouText: "We would like to offer you these resources to help you in your reflection:",
+            book1Title: "A Crazy Love",
+            book1Desc: "Discover God's unconditional love for you.",
+            book2Title: "From Least to Most",
+            book2Desc: "A guide to understanding faith and walking with God."
         }
     }
 };
@@ -822,6 +834,7 @@ function showFinalScreen() {
         // For other final screens, use the original simple layout
         // Add special background if needed
         if (finalQuestion && finalQuestion.special) {
+            finalContent.classList.add('special-bg');
             finalContent.style.backgroundImage = "url('assets/Sticker-2-700x700.webp')";
             finalContent.style.backgroundSize = 'contain';
             finalContent.style.backgroundPosition = 'center';
@@ -854,6 +867,80 @@ function showFinalScreen() {
         finalMessage.textContent = finalText;
 
         contentWrapper.appendChild(finalMessage);
+
+        // Add books section for final_reflection and final_god_believes
+        if (finalQuestion && (finalQuestion.id === 'final_reflection' || finalQuestion.id === 'final_god_believes')) {
+            const booksSection = document.createElement('div');
+            booksSection.className = 'books-section';
+            booksSection.style.marginTop = '2rem';
+            booksSection.style.background = 'linear-gradient(135deg, rgba(243, 156, 18, 0.1), rgba(230, 126, 34, 0.05))';
+            booksSection.style.border = '2px solid rgba(243, 156, 18, 0.3)';
+            booksSection.style.borderRadius = '20px';
+            booksSection.style.padding = '2rem';
+            booksSection.style.position = 'relative';
+            booksSection.style.zIndex = '2';
+
+            const booksTitle = document.createElement('h3');
+            booksTitle.textContent = t('finalScreen.booksForYouTitle');
+            booksTitle.className = 'books-title';
+            booksTitle.style.fontSize = 'clamp(1.4rem, 3vw, 1.8rem)';
+            booksTitle.style.fontWeight = '600';
+            booksTitle.style.marginBottom = '1rem';
+            booksTitle.style.textAlign = 'center';
+
+            const booksText = document.createElement('p');
+            booksText.textContent = t('finalScreen.booksForYouText');
+            booksText.className = 'books-text';
+            booksText.style.fontSize = '1.05rem';
+            booksText.style.marginBottom = '1.5rem';
+            booksText.style.textAlign = 'center';
+
+            const booksGrid = document.createElement('div');
+            booksGrid.className = 'books-grid';
+            booksGrid.style.display = 'grid';
+            booksGrid.style.gridTemplateColumns = 'repeat(auto-fit, minmax(280px, 1fr))';
+            booksGrid.style.gap = '1.5rem';
+            booksGrid.style.marginTop = '1.5rem';
+
+            // Book 1: Un Amour Fou
+            const book1 = document.createElement('div');
+            book1.className = 'book-card';
+            book1.innerHTML = `
+                <h4 class="book-title" style="font-size: 1.15rem; font-weight: 600; margin-bottom: 0.5rem;">
+                    ${t('finalScreen.book1Title')}
+                </h4>
+                <p class="book-description" style="font-size: 0.95rem; margin-bottom: 1rem;">
+                    ${t('finalScreen.book1Desc')}
+                </p>
+                <a href="${currentLang === 'fr' ? 'un_amour_fou_compressed.pdf' : 'un_amour_fou_compressed.pdf'}" download class="btn-download">
+                    <span class="download-icon">📥</span>
+                    <span>${t('finalScreen.downloadBtn')}</span>
+                </a>
+            `;
+
+            // Book 2: Du Moins au Plus
+            const book2 = document.createElement('div');
+            book2.className = 'book-card';
+            book2.innerHTML = `
+                <h4 class="book-title" style="font-size: 1.15rem; font-weight: 600; margin-bottom: 0.5rem;">
+                    ${t('finalScreen.book2Title')}
+                </h4>
+                <p class="book-description" style="font-size: 0.95rem; margin-bottom: 1rem;">
+                    ${t('finalScreen.book2Desc')}
+                </p>
+                <a href="${currentLang === 'fr' ? 'du_moins_au_plus_compressed.pdf' : 'du_moins_au_plus_compressed.pdf'}" download class="btn-download">
+                    <span class="download-icon">📥</span>
+                    <span>${t('finalScreen.downloadBtn')}</span>
+                </a>
+            `;
+
+            booksGrid.appendChild(book1);
+            booksGrid.appendChild(book2);
+            booksSection.appendChild(booksTitle);
+            booksSection.appendChild(booksText);
+            booksSection.appendChild(booksGrid);
+            contentWrapper.appendChild(booksSection);
+        }
 
         // Add restart button
         const restartButton = document.createElement('button');
