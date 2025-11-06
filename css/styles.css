@@ -412,16 +412,31 @@ body {
 
 @media (max-width: 768px) {
     .progress-container {
-        padding: 0.8rem 1rem;
+        padding: 0.6rem 0.8rem;
     }
 
     .progress-bar {
-        height: 5px;
-        margin-bottom: 0.4rem;
+        height: 4px;
+        margin-bottom: 0.3rem;
     }
 
     .progress-counter {
-        font-size: 0.85rem;
+        font-size: 0.8rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .progress-container {
+        padding: 0.5rem 0.8rem;
+    }
+
+    .progress-bar {
+        height: 3px;
+        margin-bottom: 0.25rem;
+    }
+
+    .progress-counter {
+        font-size: 0.75rem;
     }
 }
 
@@ -922,14 +937,14 @@ body {
     }
 
     .cards-container {
-        height: calc(100dvh - 200px);
-        min-height: 400px;
-        margin-top: 4rem;
+        height: calc(100dvh - 170px);
+        min-height: 420px;
+        margin-top: 3.5rem;
         padding: 0 0.5rem;
     }
 
     .question-card {
-        padding: 2rem 1.5rem;
+        padding: 2.5rem 1.5rem 1.5rem 1.5rem;
     }
 
     .question-text {
@@ -953,41 +968,43 @@ body {
     }
 
     .answer-buttons {
-        gap: 1rem;
-        margin-top: 1.5rem;
+        gap: 0.7rem;
+        margin-top: 1.2rem;
         flex-wrap: wrap;
     }
 
     .btn-answer {
-        padding: 1.1rem 2.5rem;
-        font-size: 1.1rem;
-        min-width: 140px;
-        min-height: 48px;
-        flex: 1 1 auto;
-    }
-
-    .nav-buttons {
-        bottom: 0.8rem;
-        bottom: calc(0.8rem + env(safe-area-inset-bottom));
-        flex-wrap: wrap;
-        gap: 0.8rem;
-        padding: 0 1rem;
-        width: calc(100% - 2rem);
-    }
-
-    .btn-nav {
-        padding: 0.9rem 1.5rem;
-        font-size: 0.95rem;
+        padding: 0.9rem 1.8rem;
+        font-size: 1rem;
+        min-width: 120px;
         min-height: 46px;
         flex: 1 1 auto;
     }
 
+    .nav-buttons {
+        bottom: 0.6rem;
+        bottom: calc(0.6rem + env(safe-area-inset-bottom));
+        flex-wrap: wrap;
+        gap: 0.6rem;
+        padding: 0 0.8rem;
+        width: calc(100% - 1.6rem);
+    }
+
+    .btn-nav {
+        padding: 0.75rem 1.2rem;
+        font-size: 0.9rem;
+        min-height: 44px;
+        flex: 1 1 auto;
+    }
+
     .theme-toggle {
-        top: 1rem;
-        right: 1rem;
-        width: 50px;
-        height: 50px;
-        font-size: 1.4rem;
+        top: 0.9rem;
+        top: calc(0.9rem + env(safe-area-inset-top));
+        right: 0.9rem;
+        right: calc(0.9rem + env(safe-area-inset-right));
+        width: 48px;
+        height: 48px;
+        font-size: 1.35rem;
     }
 
     .final-content {
@@ -1015,44 +1032,44 @@ body {
     .answer-buttons {
         flex-direction: column;
         width: 100%;
-        gap: 0.8rem;
-        margin-top: 1.8rem;
+        gap: 0.6rem;
+        margin-top: 1rem;
         padding: 0;
     }
 
     .btn-answer {
         width: 100%;
         max-width: 100%;
-        padding: 1.1rem 1.8rem;
-        font-size: 1.05rem;
-        min-height: 50px;
+        padding: 0.85rem 1.5rem;
+        font-size: 1rem;
+        min-height: 46px;
     }
 
     .nav-buttons {
-        bottom: 0.6rem;
-        bottom: calc(0.6rem + env(safe-area-inset-bottom));
+        bottom: 0.5rem;
+        bottom: calc(0.5rem + env(safe-area-inset-bottom));
         width: calc(100% - 1.6rem);
-        gap: 0.6rem;
+        gap: 0.5rem;
         padding: 0 0.8rem;
     }
 
     .btn-nav {
         flex: 1;
-        padding: 0.85rem 1rem;
-        font-size: 0.9rem;
-        min-height: 46px;
+        padding: 0.7rem 0.8rem;
+        font-size: 0.85rem;
+        min-height: 44px;
     }
 
     .cards-container {
-        height: calc(100dvh - 180px);
-        min-height: 380px;
-        margin-top: 3.5rem;
-        padding: 0 0.5rem;
+        height: calc(100dvh - 150px);
+        min-height: 400px;
+        margin-top: 3rem;
+        padding: 0 0.4rem;
     }
 
     .question-card {
-        padding: 1.8rem 1.2rem;
-        border-radius: 20px;
+        padding: 2rem 1rem 1rem 1rem;
+        border-radius: 18px;
     }
 
     .question-text {
@@ -1076,9 +1093,13 @@ body {
     }
 
     .theme-toggle {
-        width: 45px;
-        height: 45px;
-        font-size: 1.3rem;
+        width: 42px;
+        height: 42px;
+        font-size: 1.2rem;
+        top: 0.8rem;
+        top: calc(0.8rem + env(safe-area-inset-top));
+        right: 0.8rem;
+        right: calc(0.8rem + env(safe-area-inset-right));
     }
 
     .final-content {
@@ -1165,45 +1186,54 @@ body {
 /* === LANDSCAPE MODE ON MOBILE === */
 @media (max-height: 600px) and (orientation: landscape) {
     .cards-container {
-        height: calc(100dvh - 180px);
+        height: calc(100dvh - 150px);
         min-height: 250px;
-        margin-top: 3rem;
+        margin-top: 2.5rem;
     }
 
     .question-card {
-        padding: 1rem;
+        padding: 1rem 0.8rem 0.6rem 0.8rem;
         overflow-y: auto;
     }
 
     .question-text {
-        font-size: clamp(1.1rem, 3vw, 1.4rem);
-        line-height: 1.4;
+        font-size: clamp(1rem, 2.8vw, 1.3rem);
+        line-height: 1.35;
     }
 
     .answer-buttons {
-        margin-top: 1rem;
-        gap: 0.6rem;
-    }
-
-    .btn-answer {
-        padding: 0.8rem 1.5rem;
-        font-size: 0.95rem;
-        min-height: 44px;
-    }
-
-    .nav-buttons {
-        bottom: 0.5rem;
+        margin-top: 0.7rem;
         gap: 0.5rem;
     }
 
-    .btn-nav {
-        padding: 0.7rem 1.2rem;
+    .btn-answer {
+        padding: 0.65rem 1.2rem;
         font-size: 0.9rem;
-        min-height: 44px;
+        min-height: 42px;
+    }
+
+    .nav-buttons {
+        bottom: 0.4rem;
+        gap: 0.4rem;
+    }
+
+    .btn-nav {
+        padding: 0.6rem 1rem;
+        font-size: 0.85rem;
+        min-height: 42px;
     }
 
     .progress-container {
-        padding: 0.6rem 1rem;
+        padding: 0.4rem 0.8rem;
+    }
+
+    .progress-bar {
+        height: 3px;
+        margin-bottom: 0.2rem;
+    }
+
+    .progress-counter {
+        font-size: 0.7rem;
     }
 
     .final-content {
@@ -1228,18 +1258,70 @@ body {
 
 /* === VERY SMALL SCREENS === */
 @media (max-width: 360px) {
+    .progress-container {
+        padding: 0.4rem 0.6rem;
+    }
+
+    .progress-bar {
+        height: 2.5px;
+        margin-bottom: 0.2rem;
+    }
+
+    .progress-counter {
+        font-size: 0.7rem;
+    }
+
+    .cards-container {
+        height: calc(100dvh - 140px);
+        min-height: 380px;
+        margin-top: 2.8rem;
+    }
+
     .question-card {
-        padding: 1rem;
+        padding: 1.8rem 0.9rem 0.8rem 0.9rem;
+    }
+
+    .question-text {
+        font-size: clamp(1.35rem, 5.2vw, 1.9rem);
+        line-height: 1.5;
+    }
+
+    .question-card.has-long-text .question-text {
+        font-size: clamp(1.15rem, 4.8vw, 1.6rem);
+        line-height: 1.55;
+    }
+
+    .answer-buttons {
+        gap: 0.5rem;
+        margin-top: 0.9rem;
     }
 
     .btn-answer {
-        padding: 1rem 1.5rem;
-        font-size: 1rem;
+        padding: 0.8rem 1.3rem;
+        font-size: 0.95rem;
+        min-height: 45px;
+    }
+
+    .nav-buttons {
+        bottom: 0.4rem;
+        bottom: calc(0.4rem + env(safe-area-inset-bottom));
+        gap: 0.4rem;
     }
 
     .btn-nav {
-        padding: 0.9rem 1rem;
-        font-size: 0.9rem;
+        padding: 0.65rem 0.8rem;
+        font-size: 0.8rem;
+        min-height: 42px;
+    }
+
+    .theme-toggle {
+        width: 40px;
+        height: 40px;
+        font-size: 1.1rem;
+        top: 0.7rem;
+        top: calc(0.7rem + env(safe-area-inset-top));
+        right: 0.7rem;
+        right: calc(0.7rem + env(safe-area-inset-right));
     }
 
     .final-content {
