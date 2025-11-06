@@ -1185,6 +1185,47 @@ body {
         width: 100%;
         max-width: 100%;
     }
+
+    .books-section {
+        padding: 1.5rem;
+        margin-top: 1.5rem;
+    }
+
+    .books-section::before {
+        animation: pulse 4s ease-in-out infinite;
+    }
+
+    .books-grid {
+        gap: 1.2rem !important;
+    }
+
+    .book-card {
+        padding: 1.5rem;
+        border-radius: 16px;
+    }
+
+    .book-card h4 {
+        font-size: 1.1rem;
+        padding-left: 2rem;
+    }
+
+    .book-card h4::before {
+        font-size: 1.3rem;
+    }
+
+    .book-card p {
+        font-size: 0.95rem;
+    }
+
+    .book-card .btn-download {
+        width: 100%;
+        padding: 1rem 1.5rem;
+        font-size: 1rem;
+    }
+
+    .download-icon {
+        font-size: 1.3rem;
+    }
 }
 
 /* === LANDSCAPE MODE ON MOBILE === */
@@ -1350,6 +1391,54 @@ body {
     .final-content {
         padding: 1.5rem 1rem;
     }
+
+    .books-section {
+        padding: 1.2rem;
+        margin-top: 1.2rem;
+        border-radius: 16px;
+    }
+
+    .books-section::before {
+        animation: pulse 5s ease-in-out infinite;
+    }
+
+    .books-grid {
+        gap: 1rem !important;
+        margin-top: 1.2rem !important;
+    }
+
+    .book-card {
+        padding: 1.2rem;
+        border-radius: 14px;
+    }
+
+    .book-card:hover {
+        transform: translateY(-5px) scale(1.01);
+    }
+
+    .book-card h4 {
+        font-size: 1.05rem;
+        padding-left: 1.8rem;
+    }
+
+    .book-card h4::before {
+        font-size: 1.2rem;
+    }
+
+    .book-card p {
+        font-size: 0.9rem;
+        line-height: 1.5;
+    }
+
+    .book-card .btn-download {
+        width: 100%;
+        padding: 0.9rem 1.2rem;
+        font-size: 0.95rem;
+    }
+
+    .download-icon {
+        font-size: 1.2rem;
+    }
 }
 
 /* === ACCESSIBILITY === */
@@ -1388,6 +1477,27 @@ body {
     }
 
     .progress-fill::after {
+        animation: none !important;
+    }
+
+    .books-section::before {
+        animation: none !important;
+    }
+
+    .book-card::after {
+        animation: none !important;
+    }
+
+    .book-card h4::before,
+    .book-title::before {
+        animation: none !important;
+    }
+
+    .download-icon {
+        animation: none !important;
+    }
+
+    .btn-download:hover {
         animation: none !important;
     }
 }
@@ -1633,10 +1743,239 @@ body {
     margin-bottom: 1rem;
 }
 
+/* Books Section */
+.books-section {
+    animation: fadeInUp 0.8s ease-out;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 8px 30px rgba(243, 156, 18, 0.15);
+}
+
+.books-section::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(243, 156, 18, 0.15) 0%, transparent 70%);
+    animation: pulse 3s ease-in-out infinite;
+    pointer-events: none;
+}
+
+[data-theme="dark"] .books-section {
+    background: linear-gradient(135deg, rgba(243, 156, 18, 0.15), rgba(230, 126, 34, 0.08)) !important;
+    border-color: rgba(243, 156, 18, 0.4) !important;
+    box-shadow: 0 8px 30px rgba(243, 156, 18, 0.2);
+}
+
+[data-theme="dark"] .books-section::before {
+    background: radial-gradient(circle, rgba(243, 156, 18, 0.2) 0%, transparent 70%);
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 0.5;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.8;
+        transform: scale(1.1);
+    }
+}
+
+.books-section h3,
+.books-title {
+    position: relative;
+    z-index: 1;
+    color: var(--text-primary);
+}
+
+.books-section > p,
+.books-text {
+    position: relative;
+    z-index: 1;
+    color: var(--text-secondary);
+}
+
+/* Special card text colors (for final screens with background image) */
+.final-content.special-bg .books-title {
+    color: white !important;
+}
+
+.final-content.special-bg .books-text {
+    color: rgba(255, 255, 255, 0.9) !important;
+}
+
+.final-content.special-bg .book-card h4,
+.final-content.special-bg .book-title {
+    color: white !important;
+}
+
+.final-content.special-bg .book-card p,
+.final-content.special-bg .book-description {
+    color: rgba(255, 255, 255, 0.85) !important;
+}
+
+/* Books Grid */
+.books-grid {
+    position: relative;
+    z-index: 1;
+}
+
+@media (max-width: 640px) {
+    .books-grid {
+        grid-template-columns: 1fr !important;
+    }
+}
+
+/* Book Cards */
+.book-card {
+    background: var(--card-bg);
+    background-image:
+        linear-gradient(135deg, rgba(243, 156, 18, 0.05) 0%, transparent 50%);
+    border: 2px solid var(--border-color);
+    border-radius: 20px;
+    padding: 2rem;
+    transition: all 0.4s var(--transition-smooth);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.book-card::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -50%;
+    width: 200%;
+    height: 200%;
+    background: conic-gradient(
+        transparent,
+        rgba(243, 156, 18, 0.1),
+        transparent 30%
+    );
+    animation: rotate 4s linear infinite;
+    opacity: 0;
+    transition: opacity 0.4s;
+}
+
+@keyframes rotate {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.book-card:hover::after {
+    opacity: 1;
+}
+
+.book-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg, var(--btn-doubt), var(--btn-doubt-hover));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s var(--transition-smooth);
+    z-index: 2;
+}
+
+.book-card:hover::before {
+    transform: scaleX(1);
+}
+
+.book-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow:
+        0 15px 40px rgba(243, 156, 18, 0.3),
+        0 0 0 1px rgba(243, 156, 18, 0.1),
+        0 0 20px rgba(243, 156, 18, 0.2);
+    border-color: var(--btn-doubt);
+    background-image:
+        linear-gradient(135deg, rgba(243, 156, 18, 0.1) 0%, transparent 50%);
+}
+
+[data-theme="dark"] .book-card {
+    background-image:
+        linear-gradient(135deg, rgba(243, 156, 18, 0.08) 0%, transparent 50%);
+    border-color: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="dark"] .book-card:hover {
+    box-shadow:
+        0 15px 40px rgba(243, 156, 18, 0.4),
+        0 0 0 1px rgba(243, 156, 18, 0.2),
+        0 0 30px rgba(243, 156, 18, 0.3);
+    border-color: var(--btn-doubt);
+    background-image:
+        linear-gradient(135deg, rgba(243, 156, 18, 0.15) 0%, transparent 50%);
+}
+
+.book-card h4,
+.book-title {
+    position: relative;
+    padding-left: 2.2rem;
+    z-index: 3;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--text-primary);
+}
+
+.book-card h4::before,
+.book-title::before {
+    content: '📖';
+    position: absolute;
+    left: 0;
+    font-size: 1.5rem;
+    animation: bookBounce 2s ease-in-out infinite;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+}
+
+@keyframes bookBounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-5px);
+    }
+}
+
+.book-card p,
+.book-description {
+    flex-grow: 1;
+    line-height: 1.6;
+    position: relative;
+    z-index: 3;
+    color: var(--text-secondary);
+}
+
+.book-card .btn-download {
+    margin-top: 1.5rem;
+    width: 100%;
+    justify-content: center;
+    position: relative;
+    z-index: 3;
+}
+
 /* Download Button */
 .btn-download {
     display: inline-flex;
     align-items: center;
+    justify-content: center;
     gap: 0.8rem;
     padding: 1.2rem 2.5rem;
     font-size: 1.15rem;
@@ -1661,25 +2000,64 @@ body {
     left: -100%;
     width: 100%;
     height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-    transition: left 0.5s;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.6s;
 }
 
 .btn-download:hover::before {
     left: 100%;
 }
 
+.btn-download::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+}
+
+.btn-download:hover::after {
+    width: 300px;
+    height: 300px;
+}
+
 .btn-download:hover {
     transform: translateY(-3px) scale(1.05);
-    box-shadow: 0 12px 35px rgba(243, 156, 18, 0.45);
+    box-shadow: 0 12px 35px rgba(243, 156, 18, 0.5), 0 0 0 3px rgba(243, 156, 18, 0.2);
+    animation: buttonGlow 1.5s ease-in-out infinite;
+}
+
+@keyframes buttonGlow {
+    0%, 100% {
+        box-shadow: 0 12px 35px rgba(243, 156, 18, 0.5), 0 0 0 3px rgba(243, 156, 18, 0.2);
+    }
+    50% {
+        box-shadow: 0 12px 40px rgba(243, 156, 18, 0.6), 0 0 0 4px rgba(243, 156, 18, 0.3);
+    }
 }
 
 .btn-download:active {
     transform: translateY(-1px) scale(1.02);
+    animation: none;
 }
 
 .download-icon {
     font-size: 1.4rem;
+    animation: downloadBounce 2s ease-in-out infinite;
+}
+
+@keyframes downloadBounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-3px);
+    }
 }
 
 /* Final Actions */
